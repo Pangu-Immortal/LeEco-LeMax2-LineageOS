@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=700&size=22&duration=2600&pause=900&color=16A34A&center=true&vCenter=true&width=780&lines=Snapdragon+820+%C2%B7+Abandoned+at+Android+6;Rebuilt+from+source+to+Android+11;A+2016+flagship%2C+brought+back+to+life" alt="typing headline" />
+
 # 🔥 LeEco Le Max 2 · LineageOS 复活计划 `(x2)`
 
 ### 官方在 Android 6 抛弃了它 —— 我用源码，让它真机跑上了 Android 11
