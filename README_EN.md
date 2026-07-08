@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:a8c0ff,100:3f2b96&height=150&section=header&text=LeEco%20Le%20Max%202%20%C2%B7%20LineageOS&fontSize=40&fontColor=ffffff&animation=fadeIn&desc=A%202016%20flagship%20abandoned%20at%20Android%206%2C%20rebuilt%20from%20source%20to%20Android%2011&descSize=14&descAlignY=58" alt="header"/>
+<img src="assets/header.svg" alt="banner" width="100%"/>
 
 <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=18&pause=1000&color=6C7A96&center=true&vCenter=true&width=680&lines=Snapdragon+820+%C2%B7+abandoned+at+Android+6.0.1;Rebuilt+from+LineageOS+source+to+Android+11;Real+device+verified+%C2%B7+no+overclaiming" alt="typing"/>
 
@@ -211,6 +211,6 @@ adb shell getprop ro.lineage.build.version   # expect: 18.1
 
 <sub>Licensed under Apache-2.0, commercial use allowed (kernel under GPL-2.0, inherited from upstream) · Not affiliated with LeEco, Google, Qualcomm or the LineageOS project · Device names and trademarks belong to their respective owners · Flashing and bootloader unlocking risk data loss and bricking — back up and proceed at your own risk.</sub>
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:3f2b96,100:a8c0ff&height=100&section=footer" alt="footer"/>
+<img src="assets/footer.svg" alt="footer" width="100%"/>
 
 </div>
