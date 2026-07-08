@@ -59,10 +59,10 @@
 | 系统启动 | ✅ `sys.boot_completed = 1` | `adb shell getprop` |
 | 进入桌面 | ✅ Launcher 正常，可交互 | 真机 |
 | Android 版本 | ✅ **Android 11**（`ro.build.version.release = 11`） | `build.prop` 可查 |
-| 双卡双待 | ✅ 双 SIM 识别正常 | 拨号 / 信号栏 |
-| 基带 / 通话 | ✅ 基带在线，可正常拨打接听 | 真机 |
-| 移动数据 / WiFi / 蓝牙 | ✅ 联网、配对可用 | 真机 |
-| 相机 / 指纹 等 | 🔧 持续完善，以设备仓 Issue 为准 | Issue 跟踪 |
+| 机型识别 | ✅ 正确识别 **LEX820**（源码级修复） | `ro.product.model` |
+| 双卡配置 | ✅ 双卡模式已启用（dsds） | `persist.radio.multisim.config` |
+| 基带 / 射频 | ✅ 基带固件已加载在线 | `gsm.version.baseband` |
+| 通话 / 数据 / WiFi / 蓝牙 / 相机 | 🔧 未插卡逐项实测，待验证 | 以真机为准 |
 | Android 16 | 🧭 路线图探索中（Treble GSI），**尚未交付** | — |
 
 > 🧭 **不吹牛红线：** 本 ROM 真机稳定运行的版本是 **Android 11 / LineageOS 18.1**。Android 16 仅为持续推进的技术路线，**未交付即不宣称**。我们只写能被真机验证的东西。
@@ -86,11 +86,11 @@
 
 | 坑 | 症状 | 根因 | 征服方式 |
 | :-- | :-- | :-- | :-- |
-| **ncurses 断链** | 现代 Ubuntu 上 host 工具链编译中断 | LOS 18.1 部分 host 二进制依赖已被弃用的 `libncurses5` | 补齐 legacy host 依赖、修正 prebuilt 链接，恢复整棵 host 工具链 |
-| **LFS 大文件** | `repo sync` 与 `out/` 目录爆炸，git 拒绝写入 | vendor blobs 与 sparse 镜像超出常规文件处理阈值 | 启用 git-lfs + 大文件分区，压平 100 GB+ 构建树 |
-| **mke2fs 特性不兼容** | 刷入后 `system` 挂载失败、开机即挂 | 新版 `mke2fs` 默认开 `metadata_csum` / `64bit`，msm8996 引导链读不了 | 锁定 ext4 特性集，回退到设备可挂载的镜像格式 |
-| **data 强制加密 bootloop** | 首刷卡在开机动画、循环重启 | msm8996 FBE 与 `fstab` 加密标志不匹配 | 修正 fstab、打通 `Format Data` 流程，跑通首启动解密 |
-| **机型识别错乱** | 变体刷错基带 / OTA 校验失败 | 单一设备树未区分 Le Max 2 子型号 | 建立 `x2` codename 映射与 assert 校验，统一多变体识别 |
+| **ncurses5 断链** | 现代 Ubuntu 上老 clang 启动即崩 | LOS 18.1 预编译 clang 依赖已被弃用的 `libncurses.so.5` | 建 `.so.6 → .so.5` 兼容软链，恢复整棵 host 工具链 |
+| **webview LFS 指针** | 编译到 99% 卡死在 `webview.apk` | `repo sync` 未带 `--git-lfs`，webview.apk 只检出 Git LFS 指针而非真身 | 单独 clone 对应仓库并 `git lfs pull` 拉取真实镜像 |
+| **mke2fs orphan_file** | ART APEX / system 镜像生成失败 | 新版 e2fsprogs 的 `mke2fs.conf` 含老工具不识的 `orphan_file` 特性 | 从 `/etc/mke2fs.conf` 移除 `orphan_file` |
+| **/data 无文件系统 bootloop** | 首刷卡开机动画、`credstore` 崩溃循环 | `fastboot erase` 只擦除未建文件系统，`/data` 挂载失败 | 用 `fastboot format` / 让系统首启自建 ext4 文件系统 |
+| **机型识别 UNKNOWN** | 纯 fastboot 直刷后机型显示 UNKNOWN、丢双卡配置 | fastboot 直刷跳过 recovery 的 `devinfo.sh`，`ro.leeco.devinfo` 停留在 `NULL` | device 树对 `NULL`/空值兜底为 `le_x2_whole_netcom`（LEX820） |
 
 ---
 
@@ -176,19 +176,9 @@ adb shell getprop ro.lineage.build.version   # 期望输出: 18.1
 
 ## 👤 关于作者
 
-**主业 · 大模型算法 / AI 工程** —— 专注 **LLM 应用、Agent 智能体系统、模型工程与落地**：从推理链路、工具编排到生产级 Agent 架构，这是我投入最深、也最认真的战场。
+**主攻 · 大模型算法 / AI 工程 · 端侧 AI** —— 专注 **大模型落地、Agentic 系统（LangGraph / A2A / MCP / ADK）、端侧与离线多模态推理**（手机端 / 车载 离线语言与生图生视频、世界模型）。这是我投入最深的战场。
 
-**副业做到顶尖 · Android 定制 ROM 与逆向工程** —— 标准只有一个：做到行业顶流。你正在看的这份「让 2016 年旗舰从 Android 6 复活到 Android 11」的工程，就是这句话的注脚。另一代表作是 **[KeepLiveService](https://github.com/Pangu-Immortal)**——公认高难度的 Android 进程保活方案，系统级与逆向能力的证明。
-
-> 连副业都做到行业顶尖，是我对「工程」两个字的要求。
-
-<div align="center">
-<br/>
-
-<img src="https://github-readme-stats.vercel.app/api?username=Pangu-Immortal&show_icons=true&count_private=true&hide_border=true&theme=tokyonight" alt="GitHub Stats" height="165"/>
-<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Pangu-Immortal&layout=compact&hide_border=true&langs_count=8&theme=tokyonight" alt="Top Languages" height="165"/>
-
-</div>
+**技术爱好 · 系统底层与逆向** —— 纯工程好奇心的业余钻研，与主业无关，只关热爱。你正在看的这份「让 2016 年旗舰从 Android 6 复活到 Android 11」，和另一代表作 **[KeepLiveService](https://github.com/Pangu-Immortal)**（公认高难度的 Android 进程保活）都是这份热爱的产物。
 
 ---
 
