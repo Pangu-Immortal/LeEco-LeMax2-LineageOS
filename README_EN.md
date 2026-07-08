@@ -190,7 +190,7 @@ adb shell getprop ro.lineage.build.version   # expect: 18.1
 
 ## Star History
 
-<a href="https://star-history.com/#Pangu-Immortal/LeEco-LeMax2-LineageOS&Date"><img src="https://img.shields.io/badge/⭐_Star_History-View_Live_Chart-5C6BC0?style=for-the-badge" alt="Star History"/></a>
+<a href="https://star-history.com/#Pangu-Immortal/LeEco-LeMax2-LineageOS&Date"><img src="assets/star-history.svg" alt="Star History" width="640"/></a>
 
 <br/><br/>
 
@@ -198,7 +198,7 @@ adb shell getprop ro.lineage.build.version   # expect: 18.1
 
 **Primary focus · LLM algorithms / AI engineering / on-device AI** — building LLM applications, Agentic systems (LangGraph · A2A · MCP · ADK · GraphRAG), and on-device offline multimodal inference (mobile / in-vehicle offline language, image & video generation, world models). This is where I invest the most.
 
-**Technical hobby · systems & reverse engineering** — ROM porting, reviving old devices and reverse engineering are pure engineering curiosity, a hobby unrelated to my main work.
+**Technical hobby · systems & reverse engineering** — ROM porting, reviving old devices and reverse engineering are areas I'm genuinely fascinated by.
 
 <br/>
 

@@ -190,7 +190,7 @@ adb shell getprop ro.lineage.build.version   # 期望输出: 18.1
 
 ## Star History
 
-<a href="https://star-history.com/#Pangu-Immortal/LeEco-LeMax2-LineageOS&Date"><img src="https://img.shields.io/badge/⭐_Star_History-View_Live_Chart-5C6BC0?style=for-the-badge" alt="Star History"/></a>
+<a href="https://star-history.com/#Pangu-Immortal/LeEco-LeMax2-LineageOS&Date"><img src="assets/star-history.svg" alt="Star History" width="640"/></a>
 
 <br/><br/>
 
@@ -198,7 +198,7 @@ adb shell getprop ro.lineage.build.version   # 期望输出: 18.1
 
 **主业 · 大模型算法 / AI 工程 / 端侧 AI** —— 专注大模型落地、Agentic 系统(LangGraph · A2A · MCP · ADK · GraphRAG)、端侧离线多模态推理(手机端 / 车载离线语言与生图生视频、世界模型)。这是我投入最深的战场。
 
-**技术爱好 · 系统底层与逆向** —— ROM 定制、复活老设备与逆向工程是纯工程好奇心的业余钻研,与主业无关,只关热爱。
+**技术爱好 · 系统底层与逆向** —— ROM 定制、复活老设备与逆向工程,是我着迷的技术兴趣所在。
 
 <br/>
 
